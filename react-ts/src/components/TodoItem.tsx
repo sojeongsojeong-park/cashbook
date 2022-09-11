@@ -1,6 +1,4 @@
-import React from "react";
-
-const TodoItem:React.FC<{text : string}> = (props) => {
+const TodoItem: React.FC<{ text: string }> = (props) => {
   return <li>{props.text}</li>;
 };
 
