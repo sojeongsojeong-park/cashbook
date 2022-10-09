@@ -1,11 +1,9 @@
-import { useRouter } from "next/router";
 import { MongoClient, ObjectId } from "mongodb";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 import React from "react";
 import Head from "next/head";
 
 const MeetupDetails = (props) => {
-  const router = useRouter();
   return (
     <React.Fragment>
       <Head>
@@ -31,7 +29,7 @@ export async function getStaticPaths() {
   const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray();
   client.close();
   return {
-    fallback: true,
+    fallback: 'blocking',
     paths: meetups.map((meetup) => ({
       params: { meetupId: meetup._id.toString() },
     })),
