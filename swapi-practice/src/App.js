@@ -41,7 +41,7 @@ function App() {
   }, []);
   const addMovieHandler = async (movie) => {
     const response = await fetch(
-      "https://react-http-5a4f7-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json",
+      `${process.env.REACT_APP_FIREBASE}/movies.json`,
       {
         method: "POST",
         body: JSON.stringify(movie),
