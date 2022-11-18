@@ -1,7 +1,10 @@
+type Combinable = number | string;
+type ConversionDescriptor = "as-number" | "as-text";
+
 function combine(
-  n1: string | number,
-  n2: string | number,
-  resultConversion: "as-number" | "as-text"
+  n1: Combinable,
+  n2: Combinable,
+  resultConversion: ConversionDescriptor
 ) {
   let result;
   if (
