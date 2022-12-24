@@ -1,16 +1,20 @@
 import { Fragment } from "react";
-import { getEventById } from "../../helpers/api-util";
+import { getEventById, getFeaturedEvents } from "../../helpers/api-util";
 import EventSummary from "../../components/event-detail/event-summary";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventContent from "../../components/event-detail/event-content";
 import Head from "next/head";
-import { getAllEvents } from "../../dummy-data";
+import ErrorAlert from "../../components/ui/error-alert";
 
 function EventDefailPage(props) {
   const event = props.selectedEvent;
 
   if (!event) {
-    return <p>No event found!</p>;
+    return (
+      <div className='center'>
+        <p>Loading...</p>
+      </div>
+    );
   }
   return (
     <Fragment>
@@ -41,16 +45,17 @@ export async function getStaticProps(context) {
     props: {
       selectedEvent: event,
     },
+    revalidate: 30,
   };
 }
 
 export async function getStaticPaths() {
-  const events = getAllEvents();
+  const events = await getFeaturedEvents();
 
   const paths = events.map((event) => ({ params: { eventId: event.id } }));
   return {
     paths: paths,
-    fallback: false,
+    fallback: "blocking",
   };
 }
 
