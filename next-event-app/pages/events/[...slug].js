@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { Fragment } from "react";
 import EventList from "../../components/events/EventList";
 import { getFilteredEvents } from "../../helpers/api-util";
@@ -8,8 +7,6 @@ import ErrorAlert from "../../components/ui/error-alert";
 import Head from "next/head";
 
 function FilteredEventsPage(props) {
-  const router = useRouter();
-
   if (props.hasError) {
     return (
       <Fragment>
@@ -44,7 +41,7 @@ function FilteredEventsPage(props) {
         <title>Filtered Events</title>
         <meta
           name='description'
-          content={`All events for ${numMonth}/${numYear}.`}
+          content={`All events for ${props.date.month}/${props.date.year}.`}
         />
       </Head>
       <ResultsTitle date={date} />
